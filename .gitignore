@@ -1,0 +1,9 @@
+sanity/node_modules
+sanity/config
+sanity/plugins
+sanity/.eslintrc
+sanity/.npmignore
+sanity/sanity.json
+sanity/tsconfig.json
+sanity/yarn.lock
+API/node_modules
