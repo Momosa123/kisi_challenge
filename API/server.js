@@ -3,6 +3,7 @@ const app = express()
 const cors = require('cors')
 const PORT =  8000
 const axios = require('axios')
+const sanityClient = require("./client")
 
 app.use(cors())
 
@@ -14,8 +15,22 @@ app.get('/', (req, res) =>{
 
 axios.get('http://api.mediastack.com/v1/news?access_key=faf51760005ac738971d6003d73e8cfd&countries=nz')
   .then(response => {
-        const apiResponse = response.data;
-        console.log(apiResponse);
+        const randomArticles = response.data.data;
+        const sanityPosts = randomArticles.map(article =>({
+          _type: 'post',
+          title: article.title,
+          slug: article.url,
+          author: article.author,
+          categories: article.category,
+          mainImage: article.image,
+          publishedAt: article.published_at,
+          body: article.description
+          }
+        ))
+        for (post of sanityPosts){
+          sanityClient.create(post)
+        }
+        console.log(sanityPosts);
   }).catch(error => {
         console.log(error);
   });
