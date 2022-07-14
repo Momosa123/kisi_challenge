@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react'
+import Post from './components/post';
 import './App.css';
 
  
@@ -15,10 +16,18 @@ function App() {
     getPosts()
     },[]
   )
-
+  const postElements = posts.map(
+    post => <Post 
+    category = {post.category} 
+    title = {post.title} 
+    mainImage ={post.mainImage} 
+    author={post.author} 
+    body={post.body}  
+    />
+    )
   return (
     <div className="App">
-    <h1>Hello</h1>
+    {postElements}
     </div>
   );
 }
