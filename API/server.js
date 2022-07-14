@@ -8,7 +8,6 @@ const sanityClient = require("./client")
 app.use(bodyParser.json());
 app.use(cors())
 
-app.use(express.static('public'));
 
 
 // axios.get('http://api.mediastack.com/v1/news?access_key=faf51760005ac738971d6003d73e8cfd&countries=nz')
@@ -31,6 +30,14 @@ app.use(express.static('public'));
 //   }).catch(error => {
 //         console.log(error);
 //   });
+
+app.get('/', (req, res) => {
+   console.log('hoome')
+  sanityClient.fetch(
+    `*[_type == "post"]`
+   
+    ).then((data => res.status(200).send(data)))
+})
 
 app.get('/:category/:article', (req, res) => {
   const categoryParam = req.params.category
