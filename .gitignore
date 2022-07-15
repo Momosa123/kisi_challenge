@@ -7,3 +7,4 @@ sanity/sanity.json
 sanity/tsconfig.json
 sanity/yarn.lock
 API/node_modules
+sanity/dist/static/favicon.ico
