@@ -9,33 +9,22 @@ export default {
       type: 'string',
     },
     {
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      options: {
-        source: 'title',
-        maxLength: 96,
-      },
-    },
-    {
       name: 'author',
       title: 'Author',
-      type: 'reference',
-      to: {type: 'author'},
+      type: 'string'
     },
     {
       name: 'mainImage',
       title: 'Main image',
-      type: 'image',
+      type: 'string',
       options: {
         hotspot: true,
       },
     },
     {
-      name: 'categories',
-      title: 'Categories',
-      type: 'array',
-      of: [{type: 'reference', to: {type: 'category'}}],
+      name: 'category',
+      title: 'Category',
+      type: 'string'
     },
     {
       name: 'publishedAt',
@@ -45,8 +34,8 @@ export default {
     {
       name: 'body',
       title: 'Body',
-      type: 'blockContent',
-    },
+      type: 'string',
+    }
   ],
 
   preview: {
