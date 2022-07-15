@@ -8,9 +8,10 @@ const sanityClient = require("./client")
 app.use(bodyParser.json());
 app.use(cors())
 
-
-
-// axios.get('http://api.mediastack.com/v1/news?access_key=faf51760005ac738971d6003d73e8cfd&countries=nz')
+const path = require('path');
+//Get all the datta from the mediastack API and put them  to the sanity studio
+//we fetched the data once so we comment the code for not fetching it again
+// axios.get('http://api.mediastack.com/v1/news?access_key=faf51760005ac738971d6003d73e8cfd&countries=nz&categories=general,-business,-sports')
 //   .then(response => {
 //         const randomArticles = response.data.data;
 //         const sanityPosts = randomArticles.map(article =>({
@@ -31,7 +32,10 @@ app.use(cors())
 //         console.log(error);
 //   });
 
-app.get('/', (req, res) => {
+// Have Node serve the files for our built React app
+app.use(express.static(path.resolve(__dirname, '../blog_front/build')));
+
+app.get('/api', (req, res) => {
    console.log('hoome')
   sanityClient.fetch(
     `*[_type == "post"]`
@@ -52,6 +56,24 @@ app.get('/:category/:article', (req, res) => {
   // res.status(200).send(post)
 //  console.log(post)
 })
+
+app.get('/:article', (req, res) => {
+
+  const articleTitleParam = req.params.article
+  
+  sanityClient.fetch(
+    `*[_type == "post" && title == $articleTitleParam]`,
+    { articleTitleParam: articleTitleParam}
+   
+    ).then((data => res.status(200).send(data)))
+  // res.status(200).send(post)
+//  console.log(post)
+})
+
+// All other GET requests not handled before will return our React app
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../blog_front/build', 'index.html'));
+});
 
 app.listen(process.env.PORT || PORT, ()=>{
   console.log(`Listening on port ${PORT}` );
