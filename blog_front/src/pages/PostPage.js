@@ -10,7 +10,7 @@ export default function PostPage(){
   useEffect(
     ()=>{
       async function getPost() {
-        try {const res = await fetch(`http://localhost:8000/${category}/${title}`)
+        try {const res = await fetch(`/${category}/${title}`)
         const data = await res.json()
         setPost(data)} catch(e){
           setError(true)
