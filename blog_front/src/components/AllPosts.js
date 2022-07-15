@@ -3,13 +3,16 @@ import Post from "./PostPreview"
 
 export default function AllPosts(){
  const [posts, setPosts] = useState([])
+ const [loading, setLoading] = useState(true);
  useEffect(
    ()=>{
      async function getPosts() {
-       const res = await fetch("http://localhost:8000/")
+      console.log('je suis là')
+       const res = await fetch("/api")
        const data = await res.json()
+       console.log(data)
        setPosts(data.filter(post => post.mainImage != null))
-      console.log(posts)
+       setLoading(false);
    }
    getPosts()
    },[]
@@ -26,7 +29,8 @@ export default function AllPosts(){
    )
  return (
    <div className="grid">
-   {postElements}
+   { loading ? <h3>Loading...</h3> :
+    postElements}
    </div>
  );
 }
