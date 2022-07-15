@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import Post from "./Post"
+import Post from "./PostPreview"
 
 export default function AllPosts(){
  const [posts, setPosts] = useState([])
@@ -8,7 +8,7 @@ export default function AllPosts(){
      async function getPosts() {
        const res = await fetch("http://localhost:8000/")
        const data = await res.json()
-       setPosts(data)
+       setPosts(data.filter(post => post.mainImage != null))
       console.log(posts)
    }
    getPosts()

@@ -1,16 +1,29 @@
-import { useEffect, useState } from "react";
-import { useParams, Navigate } from "react-router-dom";
+import React, { useState, useEffect, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 
-export default function PostPage(){
-  const [post, setPost] = useState([])
-  const [loading, setLoading] = useState(true);
+
+export default function SearchPage(){
+
+
+  const {search} = useLocation();
+  console.log(search)
+  const queryParams = useMemo(() => { 
+    return new URLSearchParams(search);
+  }, [search]);
+  const articleToFind = queryParams.get('name')
+  console.log(articleToFind);
+
+  const [post, setPost] = useState([]);
+
   const [error, setError] = useState(false)
-  const {category, title} =  useParams()
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(
-    ()=>{
+    ()=>{ console.log('I will search the post')
       async function getPost() {
-        try {const res = await fetch(`http://localhost:8000/${category}/${title}`)
+        
+        try {const res = await fetch(`http://localhost:8000/${articleToFind}`)
         const data = await res.json()
         setPost(data)} catch(e){
           setError(true)
@@ -18,20 +31,21 @@ export default function PostPage(){
         setLoading(false);
     }
     getPost()
-    },[]
+    },[articleToFind]
   )
 
+  console.log(post)
   return(
     <div className="postPage">
        { loading ? (
         <h3>Loading...</h3>): error ?(
           <div>
-          <Navigate replace to="/" />
+         
           </div>
         ) :
         (
           <>
-          <h2>{title}</h2>
+          <h2>{post[0].title}</h2>
         
             <h5><span className="article-detail">Author: </span>{post[0].author}</h5>
         
@@ -39,11 +53,15 @@ export default function PostPage(){
             <h5><span className="article-detail">Category: </span>{post[0].category}</h5>
     
           <img src={post[0].mainImage} alt="" />
-          <p>{title}</p>
+          <p>{post[0].title}</p>
           <p>{post[0].body}</p>
           </>
       )
       }
     </div>
-  )
-}
+
+      )
+
+};
+
+

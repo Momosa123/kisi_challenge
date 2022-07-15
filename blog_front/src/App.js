@@ -1,22 +1,27 @@
 import React, { useState } from "react";
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
-import Post from './components/Post';
-import './App.css';
+import { BrowserRouter, Route, Routes, Link, useNavigate } from "react-router-dom";
+
+
 import AllPosts from "./components/AllPosts";
+import Header from "./components/Header";
 import PostPage from "./pages/PostPage";
+import SearchPage from "./pages/SearchPage";
 
  
 function App() {
-
+  
   return (
     <div className="App">
-      <BrowserRouter>
+    <Header/>
+      
       <Routes>
         <Route path="/:category/:title" element={<PostPage />} />
+        <Route path="/search" element={<SearchPage />} />
+        
         <Route path="/" element={<AllPosts />}/>
         
     </Routes>
-      </BrowserRouter>
+      
     </div>
   );
 }
