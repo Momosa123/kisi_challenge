@@ -1,33 +1,22 @@
-import {useState, useEffect} from 'react'
-import Post from './components/post';
+import React, { useState } from "react";
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import Post from './components/Post';
 import './App.css';
+import AllPosts from "./components/AllPosts";
+import PostPage from "./pages/PostPage";
 
  
 function App() {
-  const [posts, setPosts] = useState([])
-  useEffect(
-    ()=>{
-      async function getPosts() {
-        const res = await fetch("http://localhost:8000/")
-        const data = await res.json()
-        setPosts(data)
-       console.log(posts)
-    }
-    getPosts()
-    },[]
-  )
-  const postElements = posts.map(
-    post => <Post 
-    category = {post.category} 
-    title = {post.title} 
-    mainImage ={post.mainImage} 
-    author={post.author} 
-    body={post.body}  
-    />
-    )
+
   return (
     <div className="App">
-    {postElements}
+      <BrowserRouter>
+      <Routes>
+        <Route path="/:category/:title" element={<PostPage />} />
+        <Route path="/" element={<AllPosts />}/>
+        
+    </Routes>
+      </BrowserRouter>
     </div>
   );
 }
