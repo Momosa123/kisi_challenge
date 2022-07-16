@@ -20,7 +20,7 @@ const path = require('path');
 
 //creating dummy categories as the fetch datas have none
 const categories =['innovation', 'funding', 'FAANG', 'tech']
-let randomIndex = Math.floor(Math.random()*5)
+
 
 //Get all the datta from the mediastack API and put them  to the sanity studio
 //we fetched the data once so we comment the code for not fetching it again
@@ -40,16 +40,17 @@ axios.get(url + endpoint)
           }
         ))
 
-        const sanityPosts = randomArticles.map(article =>({
-          _type: 'post',
+        const sanityPosts = randomArticles.map(article =>{
+          let randomIndex = Math.floor(Math.random()*4)
+          return {_type: 'post',
           title: entities.decode(article.title.rendered),
           author: article.parsely.meta.creator[0],
           category: categories[randomIndex],
           mainImage: article.jetpack_featured_media_url,
           publishedAt: article.parsely.meta.datePublished,
-          body: article.content.rendered
+          body: article.content.rendered}
           }
-        ))
+        )
         for (const post of sanityPosts){
           sanityClient.create(post)
         }

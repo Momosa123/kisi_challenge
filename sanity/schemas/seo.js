@@ -17,7 +17,7 @@ export default{
   {
     name: 'openGraphImage',
     title: 'Open-graph image',
-    type: 'image'
+    type: 'string'
   },
   {
     name: 'canonicalUrl',
