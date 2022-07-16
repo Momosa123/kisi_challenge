@@ -10,12 +10,12 @@ const entities = require('html-entities')
 app.use(bodyParser.json());
 app.use(cors())
 //to be removed
-sanityClient.delete({
-  query: `*[_type == "post"]`
-})
-sanityClient.delete({
-  query: `*[_type == "seo"]`
-})
+// sanityClient.delete({
+//   query: `*[_type == "post"]`
+// })
+// sanityClient.delete({
+//   query: `*[_type == "seo"]`
+// })
 const path = require('path');
 
 //creating dummy categories as the fetch datas have none
@@ -27,40 +27,40 @@ const categories =['innovation', 'funding', 'FAANG', 'tech']
 const url = 'https://techcrunch.com/'
 const endpoint = 'wp-json/wp/v2/posts?per_page=25&context=view'
 
-axios.get(url + endpoint)
-  .then(response => {
-        const randomArticles = response.data;
-        const sanitySeo = randomArticles.map(article =>({
-          _type: 'seo',
-          metaTitle: entities.decode(article.title.rendered),
-          description: article.seoDescription,
-          canonicalUrl: article.canonical_url,
-          openGraphImage: article.jetpack_featured_media_url,
-          openGraphUrl: article.canonical_url
-          }
-        ))
+// axios.get(url + endpoint)
+//   .then(response => {
+//         const randomArticles = response.data;
+//         const sanitySeo = randomArticles.map(article =>({
+//           _type: 'seo',
+//           metaTitle: entities.decode(article.title.rendered),
+//           description: article.seoDescription,
+//           canonicalUrl: article.canonical_url,
+//           openGraphImage: article.jetpack_featured_media_url,
+//           openGraphUrl: article.canonical_url
+//           }
+//         ))
 
-        const sanityPosts = randomArticles.map(article =>{
-          let randomIndex = Math.floor(Math.random()*4)
-          return {_type: 'post',
-          title: entities.decode(article.title.rendered),
-          author: article.parsely.meta.creator[0],
-          category: categories[randomIndex],
-          mainImage: article.jetpack_featured_media_url,
-          publishedAt: article.parsely.meta.datePublished,
-          body: article.content.rendered}
-          }
-        )
-        for (const post of sanityPosts){
-          sanityClient.create(post)
-        }
-        for (const seo of sanitySeo){
-          sanityClient.create(seo)
-        }
-        console.log(randomArticles[0]);
-  }).catch(error => {
-        console.log(error);
-  });
+//         const sanityPosts = randomArticles.map(article =>{
+//           let randomIndex = Math.floor(Math.random()*4)
+//           return {_type: 'post',
+//           title: entities.decode(article.title.rendered),
+//           author: article.parsely.meta.creator[0],
+//           category: categories[randomIndex],
+//           mainImage: article.jetpack_featured_media_url,
+//           publishedAt: article.parsely.meta.datePublished,
+//           body: article.content.rendered}
+//           }
+//         )
+//         for (const post of sanityPosts){
+//           sanityClient.create(post)
+//         }
+//         for (const seo of sanitySeo){
+//           sanityClient.create(seo)
+//         }
+//         console.log(randomArticles[0]);
+//   }).catch(error => {
+//         console.log(error);
+//   });
 
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, '../blog_front/build')));
