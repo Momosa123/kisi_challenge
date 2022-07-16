@@ -6,7 +6,9 @@ export default function PostPage(){
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false)
   const {category, title} =  useParams()
-
+ 
+  
+  
   useEffect(
     ()=>{
       async function getPost() {
@@ -20,6 +22,10 @@ export default function PostPage(){
     getPost()
     },[]
   )
+  
+  function createMarkup() {
+    return {__html: post[0].body};
+  }
 
   return(
     <div className="postPage">
@@ -38,9 +44,10 @@ export default function PostPage(){
         
             <h5><span className="article-detail">Category: </span>{post[0].category}</h5>
     
-          <img src={post[0].mainImage} alt="" />
+          <img className="postImage" src={post[0].mainImage} alt="" />
           <p>{title}</p>
-          <p>{post[0].body}</p>
+          
+          <div className="body" dangerouslySetInnerHTML={createMarkup()}></div>
           </>
       )
       }
