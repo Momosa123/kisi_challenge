@@ -5,32 +5,43 @@ const PORT =  4000
 const axios = require('axios')
 const bodyParser = require('body-parser')
 const sanityClient = require("./client")
+
 app.use(bodyParser.json());
 app.use(cors())
-
+//to be removed
+sanityClient.delete({
+  query: `*[_type == "post"]`
+})
 const path = require('path');
 //Get all the datta from the mediastack API and put them  to the sanity studio
+//creating dummy categories as the fetch datas have none
+const categories =['innovation', 'funding', 'FAANG', 'tech']
+let randomIndex = Math.floor(Math.random()*5)
+console.log(randomIndex)
 //we fetched the data once so we comment the code for not fetching it again
-// axios.get('http://api.mediastack.com/v1/news?access_key=faf51760005ac738971d6003d73e8cfd&countries=nz&categories=general,-business,-sports')
-//   .then(response => {
-//         const randomArticles = response.data.data;
-//         const sanityPosts = randomArticles.map(article =>({
-//           _type: 'post',
-//           title: article.title,
-//           author: article.author,
-//           category: article.category,
-//           mainImage: article.image,
-//           publishedAt: article.published_at,
-//           body: article.description
-//           }
-//         ))
-//         for (const post of sanityPosts){
-//           sanityClient.create(post)
-//         }
-//         console.log(sanityPosts.length);
-//   }).catch(error => {
-//         console.log(error);
-//   });
+const url = 'https://techcrunch.com/'
+const endpoint = 'wp-json/wp/v2/posts?per_page=25&context=view'
+
+axios.get(url + endpoint)
+  .then(response => {
+        const randomArticles = response.data;
+        const sanityPosts = randomArticles.map(article =>({
+          _type: 'post',
+          title: article.title.rendered,
+          author: article.parsely.meta.creator[0],
+          category: categories[randomIndex],
+          mainImage: article.jetpack_featured_media_url,
+          publishedAt: article.parsely.meta.datePublished,
+          body: article.content.rendered
+          }
+        ))
+        for (const post of sanityPosts){
+          sanityClient.create(post)
+        }
+        console.log(randomArticles[0]);
+  }).catch(error => {
+        console.log(error);
+  });
 
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, '../blog_front/build')));
