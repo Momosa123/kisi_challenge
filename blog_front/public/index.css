@@ -41,7 +41,9 @@ h2{
 img{
   width: 200px;
 }
-
+.postImage{
+  width: 100%;
+}
 .title{
   width: 200px;
   margin-top: 5px;
@@ -104,6 +106,10 @@ text-decoration: none;
   margin: 0 auto
 }
 
+.body img{
+  width: 450px;
+  height: 450px;
+}
 .article-detail{
   font-weight: 500;
 }
