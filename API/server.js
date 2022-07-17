@@ -22,7 +22,7 @@ const path = require('path');
 const categories =['innovation', 'funding', 'FAANG', 'tech']
 
 
-//Get all the datta from the mediastack API and put them  to the sanity studio
+//Get all the data from the mediastack API and put them  to the sanity studio
 //we fetched the data once so we comment the code for not fetching it again
 const url = 'https://techcrunch.com/'
 const endpoint = 'wp-json/wp/v2/posts?per_page=25&context=view'
@@ -66,13 +66,14 @@ const endpoint = 'wp-json/wp/v2/posts?per_page=25&context=view'
 app.use(express.static(path.resolve(__dirname, '../blog_front/build')));
 
 app.get('/api', (req, res) => {
-   console.log('hoome')
+   console.log('home')
   sanityClient.fetch(
     `*[_type == "post"]`
    
     ).then((data => res.status(200).send(data)))
 })
 
+//serve the article where the path is /categoryName/articleTitle
 app.get('/:category/:article', (req, res) => {
   const categoryParam = req.params.category
   const articleTitleParam = req.params.article
