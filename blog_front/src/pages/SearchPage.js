@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 
 export default function SearchPage(){
 
 
   const {search} = useLocation();
-  console.log(search)
+
   const queryParams = useMemo(() => { 
     return new URLSearchParams(search);
   }, [search]);
   const articleToFind = queryParams.get('name')
-  console.log(articleToFind);
+
 
   const [post, setPost] = useState([]);
 
@@ -25,7 +25,9 @@ export default function SearchPage(){
         
         try {const res = await fetch(`/${articleToFind}`)
         const data = await res.json()
+       
         setPost(data)} catch(e){
+          
           setError(true)
         }
         setLoading(false);
@@ -33,14 +35,18 @@ export default function SearchPage(){
     getPost()
     },[articleToFind]
   )
+  
+  function createMarkup() {
+    return {__html: post[0].body};
+  }
 
-  console.log(post)
+ 
   return(
     <div className="postPage">
        { loading ? (
         <h3>Loading...</h3>): error ?(
           <div>
-         
+          <Navigate to="/article-not-found" replace />
           </div>
         ) :
         (
@@ -53,8 +59,8 @@ export default function SearchPage(){
             <h5><span className="article-detail">Category: </span>{post[0].category}</h5>
     
           <img src={post[0].mainImage} alt="" />
-          <p>{post[0].title}</p>
-          <p>{post[0].body}</p>
+          
+          <div className="body" dangerouslySetInnerHTML={createMarkup()}></div>
           </>
       )
       }
