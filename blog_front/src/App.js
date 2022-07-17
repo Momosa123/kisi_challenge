@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter, Route, Routes, Link, useNavigate } from "react-router-dom";
 
 
-import AllPosts from "./components/AllPosts";
+import AllPosts from "./pages/AllPosts";
 import Header from "./components/Header";
 import PostPage from "./pages/PostPage";
 import SearchPage from "./pages/SearchPage";
