@@ -66,7 +66,7 @@ const endpoint = 'wp-json/wp/v2/posts?per_page=25&context=view'
 app.use(express.static(path.resolve(__dirname, '../blog_front/build')));
 
 app.get('/api', (req, res) => {
-   console.log('home')
+  
   sanityClient.fetch(
     `*[_type == "post"]`
    
@@ -83,7 +83,17 @@ app.get('/:category/:article', (req, res) => {
     { categoryParam: categoryParam,
       articleTitleParam: articleTitleParam}
    
-    ).then((data => res.status(200).send(data)))
+    ).then((data => {
+      console.log(data)
+        data ?
+        res.status(200).send(data) : 
+        res.json().then((body) => {
+          console.log("error fetching category and article")
+          throw new Error(body.error)
+        })
+      }
+    )
+  )
   // res.status(200).send(post)
 //  console.log(post)
 })
@@ -96,7 +106,19 @@ app.get('/:article', (req, res) => {
     `*[_type == "post" && title == $articleTitleParam]`,
     { articleTitleParam: articleTitleParam}
    
-    ).then((data => res.status(200).send(data)))
+    ).then(data => {
+      
+        if (data.length == 0) 
+        {
+          
+          res.status(404).send('unknown article')
+          }
+        else {
+          
+          res.status(200).send(data)
+        }        
+      
+      })
   // res.status(200).send(post)
 //  console.log(post)
 })
