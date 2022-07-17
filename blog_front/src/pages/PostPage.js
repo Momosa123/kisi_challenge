@@ -45,7 +45,7 @@ export default function PostPage(){
             <h5><span className="article-detail">Category: </span>{post[0].category}</h5>
     
           <img className="postImage" src={post[0].mainImage} alt="" />
-          <p>{title}</p>
+         
           
           <div className="body" dangerouslySetInnerHTML={createMarkup()}></div>
           </>
