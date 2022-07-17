@@ -10,12 +10,15 @@ header{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: black;
+  background-color: #01cf01;
   padding: 10px;
   margin-top: 0;
   margin-bottom: 50px;
 }
 
+.header-title:hover{
+cursor:pointer
+}
 h1{
   margin: 0;
   color: #fff;
@@ -39,11 +42,9 @@ h2{
 }
 
 img{
-  width: 200px;
-}
-.postImage{
   width: 100%;
 }
+
 .title{
   width: 200px;
   margin-top: 5px;
@@ -55,7 +56,7 @@ text-decoration: none;
 }
 
 .link:hover{
-  color:rgb(204, 0, 0)
+  color:#01cf01
 }
 
 .search {
@@ -92,7 +93,7 @@ text-decoration: none;
 }
 
 .button {
-  background: #56009b;
+  background: #01cf01;
   color: white;
   font-size: 14px;
   border: none;
@@ -101,14 +102,18 @@ text-decoration: none;
   text-decoration: none;
 }
 
+.button:hover{
+  cursor:pointer
+}
 .postPage{
-  width: 450px;
+  padding: 0 20px;
+  max-width: 700px;
   margin: 0 auto
 }
 
 .body img{
-  width: 450px;
-  height: 450px;
+  width: 500px;
+  height: 500px;
 }
 .article-detail{
   font-weight: 500;
