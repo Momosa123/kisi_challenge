@@ -24,8 +24,8 @@ export default function ContactForm (){
       body: JSON.stringify(details),
     });
     setStatus("Submit");
-    let result = await response.json();
-    alert(result.status);
+    // let result = await response.json();
+    alert('Message Sent');
   };
 
   return(
@@ -77,7 +77,7 @@ export default function ContactForm (){
     
       </form>
       <h6>Made with ❤️❤️❤️ by Mouhamadou</h6>
-      <h6>All rights reserved, 2022</h6>
+      <h6>© 2022, All rights reserved</h6>
     </footer>
   )
 }
