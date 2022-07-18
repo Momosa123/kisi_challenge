@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Navigate } from "react-router-dom";
+import ContactForm from "../components/Email";
 
 export default function PostPage(){
   const [post, setPost] = useState([])
@@ -28,7 +29,8 @@ export default function PostPage(){
   }
 
   return(
-    <div className="postPage">
+<>
+<div className="postPage">
        { loading ? (
         <h3>Loading...</h3>): error ?(
           <div>
@@ -52,5 +54,7 @@ export default function PostPage(){
       )
       }
     </div>
+    {!loading && <ContactForm/>}
+</>
   )
 }

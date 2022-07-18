@@ -1,16 +1,18 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-
+const router = express.Router();
 const PORT =  4000
 const axios = require('axios')
-const bodyParser = require('body-parser')
+const nodemailer = require('nodemailer')
+// const bodyParser = require('body-parser')
+app.use(express.json());
 const sanityClient = require("./client")
 //html-entities to convert special characters
 const entities = require('html-entities')
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 app.use(cors())
-
+app.use("/", router)
 //to be removed
 // sanityClient.delete({
 //   query: `*[_type == "post"]`
@@ -103,32 +105,72 @@ app.get('/:category/:article', (req, res) => {
 
 app.get('/:article', (req, res) => {
 
-  const articleTitleParam = req.params.article
- 
-          sanityClient.fetch(
-            `*[_type == "post" && title == $articleTitleParam]`,
-            { articleTitleParam: articleTitleParam}
-           
-            ).then(data => {
-              
-                if (data.length == 0) 
-                {
-                return  res.status(404).send('unknown article')
-                  }
-                else {
-                  
-                 return res.status(200).send(data)
-                }        
-              
-              })
-   
-        
-        }        
-      
-      )
-  
-    
+const articleTitleParam = req.params.article
 
+      sanityClient.fetch(
+        `*[_type == "post" && title == $articleTitleParam]`,
+        { articleTitleParam: articleTitleParam}
+        
+        ).then(data => {
+          
+            if (data.length == 0) 
+            {
+            return  res.status(404).send('unknown article')
+              }
+            else {
+              
+              return res.status(200).send(data)
+            }        
+          
+          })
+
+    
+    }        
+  
+  )
+  
+const contactEmail = nodemailer.createTransport({
+    service: 'gmail',
+    port: 465,
+    auth: {
+    user: "mouhamadoul.sarr@gmail.com",
+    pass: "ddxfhtiamkwkmoyk",
+  },
+  secure:true,
+});
+
+contactEmail.verify((error) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("Ready to Send");
+  }
+});  
+
+router.post("/contact", (req, res) => {
+  const name = req.body.name;
+  const email = req.body.email;
+  const message = req.body.message; 
+  console.log(email)
+  const mail = {
+    from: "mouhamadoul.sarr@gmail.com",
+    to: email,
+    subject: " KISI Form Submission",
+    html: `Hello ${name},<br><br>
+    Thanks we received your extraordinary message.
+            We will get bak to you as soon as possible 🚀🚀🚀 <br><br>
+            <h5>From Mouhamadou, Javascript Operations Engineer  at KISI ❤️</h5>
+            `,
+
+  };
+  contactEmail.sendMail(mail, (error,info) => {
+    if (error) {
+      res.json({ status: "ERROR" });
+    } else {
+      res.status(200).send({message:"Mail sent", message_id: info.messageId})
+    }
+  });
+});
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../blog_front/build', 'index.html'));

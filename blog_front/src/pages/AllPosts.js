@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import CategoryFilter from "../components/CategoryFilter";
+import ContactForm from "../components/Email";
 import Post from "../components/PostPreview"
 
 export default function AllPosts(){
@@ -48,7 +49,9 @@ const categories = ['tech', 'funding', 'FAANG', 'innovation']
    { loading ? <h3>Loading...</h3> :
     
     postElements}
+    
    </div>
+   {!loading && <ContactForm/>}
    </>
  );
 }

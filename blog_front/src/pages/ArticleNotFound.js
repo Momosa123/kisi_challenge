@@ -1,5 +1,6 @@
 import React from 'react';
 import {Navigate, useNavigate} from 'react-router-dom'
+import ContactForm from '../components/Email';
 // import useHistory here.
 
 export default function ArticleNotFound(){
@@ -12,7 +13,8 @@ export default function ArticleNotFound(){
   }
   
   return (
-    <main className="postPage">
+    <>
+      <main className="postPage">
       <h3>404: Article not found</h3>
       <p>Sorry, but the article you are looking for was not found!</p>
 
@@ -25,7 +27,10 @@ export default function ArticleNotFound(){
           Go Back
         </button>
       </div>
+       
     </main>
+    <ContactForm/>
+    </>
   );
 };
 
