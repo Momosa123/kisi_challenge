@@ -1,5 +1,5 @@
 # KISI Blog
-[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com) 
+[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com) [![forthebadge](http://forthebadge.com/images/badges/powered-by-electricity.svg)](http://forthebadge.com)
 
 This is a fullstack blog project. The article datas are fetched at the techCrunch
 API on Wordpress and stored in a Sanity studio.
