@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react"
+import CategoryFilter from "../components/CategoryFilter";
 import Post from "../components/PostPreview"
 
 export default function AllPosts(){
  const [posts, setPosts] = useState([])
+ const [filteredPosts, setfilteredPosts] = useState([])
  const [loading, setLoading] = useState(true);
+
+
+
  useEffect(
    ()=>{
      async function getPosts() {
@@ -12,12 +17,20 @@ export default function AllPosts(){
        const data = await res.json()
        console.log(data)
        setPosts(data.filter(post => post.mainImage != null))
+       setfilteredPosts(data.filter(post => post.mainImage != null))
        setLoading(false);
    }
    getPosts()
    },[]
  )
- const postElements = posts.map(
+//  const categories = [...new Set(posts.map((Val) => Val.category))];
+const categories = ['tech', 'funding', 'FAANG', 'innovation']
+
+
+
+
+// display posts based on the selected categories
+ const postElements = filteredPosts.map(
    (post, i) => <Post
    key={i} 
    category = {post.category} 
@@ -28,9 +41,14 @@ export default function AllPosts(){
    />
    )
  return (
+  <>
+  <CategoryFilter setfilteredPosts={setfilteredPosts} filteredPosts={filteredPosts} categories={categories} setPosts={setPosts} posts={posts}/>
    <div className="grid">
+   
    { loading ? <h3>Loading...</h3> :
+    
     postElements}
    </div>
+   </>
  );
 }
