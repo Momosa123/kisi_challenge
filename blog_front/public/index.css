@@ -118,3 +118,32 @@ text-decoration: none;
 .article-detail{
   font-weight: 500;
 }
+
+.category-filter{
+  max-width: 400px;
+  border: 1px solid rgb(196, 196, 196);
+  margin: 0 0 50px 32px;
+}
+.category-title{
+  display: flex;
+  align-items: center;
+  background-color: #dee9de;
+  padding-left: 15px;
+}
+
+.category-title:hover{
+  cursor: pointer;
+}
+.category-filter h5{
+  margin:10px
+}
+.fleche{
+  width:10px
+}
+
+.categories{
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 10px;
+  transition: all ease-in;
+}
