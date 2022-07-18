@@ -11,7 +11,7 @@ export default function SearchPage(){
     return new URLSearchParams(search);
   }, [search]);
   const articleToFind = queryParams.get('name')
-
+  console.log(articleToFind)
 
   const [post, setPost] = useState([]);
 
@@ -25,7 +25,7 @@ export default function SearchPage(){
         
         try {const res = await fetch(`/${articleToFind}`)
         const data = await res.json()
-       
+       console.log((data))
         setPost(data)} catch(e){
           
           setError(true)
@@ -40,7 +40,7 @@ export default function SearchPage(){
     return {__html: post[0].body};
   }
 
- 
+ console.log(post)
   return(
     <div className="postPage">
        { loading ? (
