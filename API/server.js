@@ -5,15 +5,15 @@ const router = express.Router();
 const PORT =  4000
 const axios = require('axios')
 const nodemailer = require('nodemailer')
-// const bodyParser = require('body-parser')
+
 app.use(express.json());
 const sanityClient = require("./client")
 //html-entities to convert special characters
-const entities = require('html-entities')
+// const entities = require('html-entities')
 // app.use(bodyParser.json());
 app.use(cors())
 app.use("/", router)
-//to be removed
+//used to delete all the documents in sanity studio if needed
 // sanityClient.delete({
 //   query: `*[_type == "post"]`
 // })
@@ -28,10 +28,10 @@ const categories =['innovation', 'funding', 'FAANG', 'tech']
 
 //Get all the data from the mediastack API and put them  to the sanity studio
 //we fetched the data once so we comment the code for not fetching it again
-const url = 'https://techcrunch.com/'
+const techCrunchUrl = 'https://techcrunch.com/'
 const endpoint = 'wp-json/wp/v2/posts?per_page=25&context=view'
 
-// axios.get(url + endpoint)
+// axios.get(techCrunchUrl + endpoint)
 //   .then(response => {
 //         const randomArticles = response.data;
 //         const sanitySeo = randomArticles.map(article =>({
@@ -69,7 +69,7 @@ const endpoint = 'wp-json/wp/v2/posts?per_page=25&context=view'
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, '../blog_front/build')));
 
-
+//fetch all posts from sanity studio and send them to frontend
 app.get('/api', (req, res) => {
   
   sanityClient.fetch(
@@ -78,7 +78,7 @@ app.get('/api', (req, res) => {
     ).then((data => res.status(200).send(data)))
 })
 
-//serve the article where the path is /categoryName/articleTitle
+//fetch  post based on category and title from sanity studio and send it to frontend
 app.get('/:category/:article', (req, res) => {
   const categoryParam = req.params.category
   const articleTitleParam = req.params.article
@@ -99,36 +99,36 @@ app.get('/:category/:article', (req, res) => {
       }
     )
   )
-  // res.status(200).send(post)
-//  console.log(post)
+
 })
 
 app.get('/:article', (req, res) => {
 
 const articleTitleParam = req.params.article
 
-      sanityClient.fetch(
-        `*[_type == "post" && title == $articleTitleParam]`,
-        { articleTitleParam: articleTitleParam}
-        
-        ).then(data => {
-          
-            if (data.length == 0) 
-            {
-            return  res.status(404).send('unknown article')
-              }
-            else {
-              
-              return res.status(200).send(data)
-            }        
-          
-          })
-
+  sanityClient.fetch(
+    `*[_type == "post" && title == $articleTitleParam]`,
+    { articleTitleParam: articleTitleParam}
     
-    }        
+    ).then(data => {
+      
+        if (data.length == 0) 
+        {
+        return  res.status(404).send('unknown article')
+          }
+        else {
+          
+          return res.status(200).send(data)
+        }        
+      
+      })
+
   
-  )
-  
+  }        
+
+)
+
+//create transport linked to my email with nodemailer
 const contactEmail = nodemailer.createTransport({
     service: 'gmail',
     port: 465,
@@ -147,17 +147,18 @@ contactEmail.verify((error) => {
   }
 });  
 
+//send email on form submission
 router.post("/contact", (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
   const message = req.body.message; 
-  console.log(email)
+  
   const mail = {
     from: "mouhamadoul.sarr@gmail.com",
     to: email,
     subject: " KISI Form Submission",
     html: `Hello ${name},<br><br>
-    Thanks we received your extraordinary message.
+    Thanks we received your extraordinary message.<br>
             We will get bak to you as soon as possible 🚀🚀🚀 <br><br>
             <h5>From Mouhamadou, Javascript Operations Engineer  at KISI ❤️</h5>
             `,
@@ -171,6 +172,7 @@ router.post("/contact", (req, res) => {
     }
   });
 });
+
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../blog_front/build', 'index.html'));
