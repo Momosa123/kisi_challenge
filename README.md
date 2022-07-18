@@ -1,9 +1,9 @@
 # KISI Blog
 [![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com) 
 
-This is a fullstack blog project. The post datas are fetched on the techCrunch
-API on Wordpress and stored in a sanity studio.
-Then article are fetched in Sanity based on the endpoint.
+This is a fullstack blog project. The article datas are fetched at the techCrunch
+API on Wordpress and stored in a Sanity studio.
+Then article are fetched with Express in Sanity database each time there is a request from the frontend.
 The visitor can search an article with the title and 
 a 404 page is displayed if the article is not found.
 It is possible to filter articles based on the categories.
