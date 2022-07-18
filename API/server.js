@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
+
 const PORT =  4000
 const axios = require('axios')
 const bodyParser = require('body-parser')
@@ -9,6 +10,7 @@ const sanityClient = require("./client")
 const entities = require('html-entities')
 app.use(bodyParser.json());
 app.use(cors())
+
 //to be removed
 // sanityClient.delete({
 //   query: `*[_type == "post"]`
@@ -65,6 +67,7 @@ const endpoint = 'wp-json/wp/v2/posts?per_page=25&context=view'
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, '../blog_front/build')));
 
+
 app.get('/api', (req, res) => {
   
   sanityClient.fetch(
@@ -101,27 +104,30 @@ app.get('/:category/:article', (req, res) => {
 app.get('/:article', (req, res) => {
 
   const articleTitleParam = req.params.article
-  
-  sanityClient.fetch(
-    `*[_type == "post" && title == $articleTitleParam]`,
-    { articleTitleParam: articleTitleParam}
+ 
+          sanityClient.fetch(
+            `*[_type == "post" && title == $articleTitleParam]`,
+            { articleTitleParam: articleTitleParam}
+           
+            ).then(data => {
+              
+                if (data.length == 0) 
+                {
+                return  res.status(404).send('unknown article')
+                  }
+                else {
+                  
+                 return res.status(200).send(data)
+                }        
+              
+              })
    
-    ).then(data => {
-      
-        if (data.length == 0) 
-        {
-          
-          res.status(404).send('unknown article')
-          }
-        else {
-          
-          res.status(200).send(data)
+        
         }        
       
-      })
-  // res.status(200).send(post)
-//  console.log(post)
-})
+      )
+  
+    
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
