@@ -3,11 +3,13 @@
 
 This is a fullstack blog project. The article datas are fetched at the techCrunch
 API on Wordpress and stored in a Sanity studio.
+And the blog admin can create new blog posts directly in sanity studio.
 Then article are fetched with Express in Sanity database each time there is a request from the frontend.
 The visitor can search an article with the title and 
 a 404 page is displayed if the article is not found.
 It is possible to filter articles based on the categories.
 The visitor can submit a form and receive an email.
+
 
 ### Built With
 
