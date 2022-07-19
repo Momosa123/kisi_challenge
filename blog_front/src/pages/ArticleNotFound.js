@@ -19,7 +19,7 @@ export default function ArticleNotFound(){
       <p>Sorry, but the article you are looking for was not found!</p>
 
       <iframe title='lost' src="https://giphy.com/embed/3o7aCTPPm4OHfRLSH6" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-      <p><a href="https://giphy.com/gifs/reaction-3o7aCTPPm4OHfRLSH6">via GIPHY</a></p>
+      <p><a href="https://giphy.com/gifs/reaction-3o7aCTPPm4OHfRLSH6"></a></p>
 
      
       <div className="actions-container">
