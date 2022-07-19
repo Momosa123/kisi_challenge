@@ -120,11 +120,12 @@ text-decoration: none;
 }
 
 .category-filter{
-  max-width: 500px;
+  padding: 0 20px;
   border: 1px solid rgb(196, 196, 196);
   margin: 0 0 50px 32px;
 }
 .category-title{
+  max-width: 500px;
   display: flex;
   align-items: center;
   background-color: #dee9de;
