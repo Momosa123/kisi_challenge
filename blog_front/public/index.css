@@ -120,15 +120,16 @@ text-decoration: none;
 }
 
 .category-filter{
-  padding: 0 20px;
-  border: 1px solid rgb(196, 196, 196);
-  margin: 0 0 50px 32px;
+  padding: 0 32px;
+  
+  margin: 0 0 50px;
 }
 .category-title{
   max-width: 500px;
   display: flex;
   align-items: center;
   background-color: #dee9de;
+  border: 1px solid rgb(196, 196, 196);
   padding-left: 15px;
 }
 
