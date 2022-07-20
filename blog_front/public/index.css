@@ -120,6 +120,7 @@ text-decoration: none;
 }
 
 .category-filter{
+  flex-basis: 500px;
   padding: 0 32px;
   
   margin: 0 0 50px;
@@ -133,8 +134,18 @@ text-decoration: none;
   padding-left: 15px;
 }
 
+.filter{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
 .category-title:hover{
+
   cursor: pointer;
+}
+
+option{
+  padding: 10px
 }
 .category-filter h5{
   margin:10px

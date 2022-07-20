@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import PostPage from "./pages/PostPage";
 import SearchPage from "./pages/SearchPage";
 import ArticleNotFound from "./pages/ArticleNotFound";
+import SortingArticles from "./pages/SortingArticles";
 
  
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/:category/:title" element={<PostPage />} />
         <Route path="/search" element={<SearchPage />} />
+        <Route path="/:sort" element={<SortingArticles />} />
         <Route path="/article-not-found" element={<ArticleNotFound />} />
         
         <Route path="/" element={<AllPosts />}/>

@@ -35,7 +35,7 @@ export default function ContactForm (){
       className='emailForm'
       onSubmit={handleSubmit}>
     
-          <div class="name">
+          <div className="name">
             <input
               type="text"
               name="name"
@@ -44,7 +44,7 @@ export default function ContactForm (){
               required
             />
           </div>
-          <div class="email">
+          <div className="email">
             <input
               type="text"
               name="email"
@@ -53,7 +53,7 @@ export default function ContactForm (){
               required
             />
           </div>
-          <div class="subject">
+          <div className="subject">
             <input
               type="text"
               name="subject"
@@ -61,7 +61,7 @@ export default function ContactForm (){
               placeholder="Subject"
             />
           </div>
-          <div class="message">
+          <div className="message">
             <textarea
               name="message"
               id="message"

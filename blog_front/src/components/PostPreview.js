@@ -1,7 +1,7 @@
 
 import { Link } from "react-router-dom";
 
-export default function PostPreview({title, author, category, mainImage, body}){
+export default function PostPreview({title, category, mainImage}){
 
 
   return(

@@ -15,7 +15,7 @@ export default function CategoryFilter({categories, setPosts, posts, setfiltered
     const arrayFromSelectedCategory = [selectedCategory]
     console.log(selectedCategory)
     if(!selectedCategories.includes(selectedCategory)){
-      console.log('tu nes pas dedans')
+     
       setSelectedCategories(newCategories => [...newCategories,...arrayFromSelectedCategory])
       
     }

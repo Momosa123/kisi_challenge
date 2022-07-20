@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import CategoryFilter from "../components/CategoryFilter";
+import SortFilter from "../components/SortFilter";
 import ContactForm from "../components/Email";
 import Post from "../components/PostPreview"
 
@@ -43,15 +44,20 @@ const categories = ['tech', 'funding', 'FAANG', 'innovation']
    )
  return (
   <>
-  <CategoryFilter setfilteredPosts={setfilteredPosts} filteredPosts={filteredPosts} categories={categories} setPosts={setPosts} posts={posts}/>
-   <div className="grid">
-   
-   { loading ? <h3>Loading...</h3> :
+    <div className="filter">
+    <CategoryFilter setfilteredPosts={setfilteredPosts} filteredPosts={filteredPosts} categories={categories} setPosts={setPosts} posts={posts}/>
+    <SortFilter/>
+    </div>
     
-    postElements}
+    <div className="grid">
     
-   </div>
-   {!loading && <ContactForm/>}
+    
+    { loading ? <h3>Loading...</h3> :
+      
+      postElements}
+      
+    </div>
+    {!loading && <ContactForm/>}
    </>
  );
 }
