@@ -23,7 +23,7 @@ export default function SearchPage(){
     ()=>{ console.log('I will search the post')
       async function getPost() {
         
-        try {const res = await fetch(`/${articleToFind}`)
+        try {const res = await fetch(`/search/?title=${articleToFind}`)
         const data = await res.json()
        console.log((data))
         setPost(data)} catch(e){

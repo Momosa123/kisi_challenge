@@ -14,7 +14,7 @@ export default function Sorting() {
   }
  useEffect(
   ()=>{
-    navigate(`/${sortOption}`); 
+    navigate(`/?sort=${sortOption}`); 
   },[sortOption]
  )
   return (

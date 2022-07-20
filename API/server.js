@@ -102,16 +102,15 @@ app.get('/:category/:article', (req, res) => {
 
 })
 
-app.get('/:article', (req, res) => {
+app.get('/search', (req, res) => {
 
-const articleTitleParam = req.params.article
+const articleTitleParam = req.query.title
 
   sanityClient.fetch(
     `*[_type == "post" && title == $articleTitleParam]`,
     { articleTitleParam: articleTitleParam}
     
     ).then(data => {
-      
         if (data.length == 0) 
         {
         return  res.status(404).send('unknown article')
@@ -127,6 +126,30 @@ const articleTitleParam = req.params.article
   }        
 
 )
+
+app.get('/:sort', (req, res) => {
+
+   const sortChoice = req.params.sort
+  
+  //   sanityClient.fetch(
+  //     `*[_type == "post" | order (publishedAt)]`)
+  //     .then(data => {
+        
+  //         if (data.length == 0) 
+  //         {
+  //         return  res.status(404).send('unknown article')
+  //           }
+  //         else {
+            
+  //           return res.status(200).send(data)
+  //         }        
+        
+  //       })
+  
+    console.log( `You asked for by ${sortChoice}` )
+    }        
+  
+  )
 
 //create transport linked to my email with nodemailer
 const contactEmail = nodemailer.createTransport({
