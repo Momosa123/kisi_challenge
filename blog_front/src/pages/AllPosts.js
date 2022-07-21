@@ -46,7 +46,7 @@ const categories = ['tech', 'funding', 'FAANG', 'innovation']
   <>
     <div className="filter">
     <CategoryFilter setfilteredPosts={setfilteredPosts} filteredPosts={filteredPosts} categories={categories} setPosts={setPosts} posts={posts}/>
-    <SortFilter/>
+    {/* <SortFilter/> */}
     </div>
     
     <div className="grid">

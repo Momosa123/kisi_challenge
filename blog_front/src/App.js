@@ -19,7 +19,7 @@ function App() {
       <Routes>
         <Route path="/:category/:title" element={<PostPage />} />
         <Route path="/search" element={<SearchPage />} />
-        <Route path="/:sort" element={<SortingArticles />} />
+        {/* <Route path="/:sort" element={<SortingArticles />} /> */}
         <Route path="/article-not-found" element={<ArticleNotFound />} />
         
         <Route path="/" element={<AllPosts />}/>

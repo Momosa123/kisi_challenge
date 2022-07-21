@@ -127,9 +127,9 @@ const articleTitleParam = req.query.title
 
 )
 
-app.get('/:sort', (req, res) => {
+app.get('/sort', (req, res) => {
 
-   const sortChoice = req.params.sort
+   const sortChoice = req.query.option
   
   //   sanityClient.fetch(
   //     `*[_type == "post" | order (publishedAt)]`)

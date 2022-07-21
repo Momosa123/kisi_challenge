@@ -1,29 +1,36 @@
-import { useEffect, useState } from "react";
-import { useParams, Navigate } from "react-router-dom";
+import { query } from "express";
+import { useEffect, useMemo, useState } from "react";
+import { Navigate, useLocation } from "react-router-dom";
 import ContactForm from "../components/Email";
 
 export default function SortingArticles(){
   const [post, setPost] = useState([])
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false)
-  const {sort} =  useParams()
- 
+  const {sort} = useLocation();
+
+  // const queryParams = useMemo(() => { 
+  //   return new URLSearchParams(sort);
+  // }, [sort]);
+  // // console.log(queryParams)
+  // const sortingOption = queryParams.get('option')
+  // console.log(sortingOption)
   
   
-  useEffect(
-    ()=>{
-      async function getPost() {
-        try {const res = await fetch(`/${sort}`)
-        const data = await res.json()
-        setPost(data)} catch(e){
-          console.log('boloss')
-          setError(true)
-        }
-        setLoading(false);
-    }
-    getPost()
-    },[]
-  )
+  // useEffect(
+  //   ()=>{
+  //     async function getPost() {
+  //       try {const res = await fetch(`/sort/?option=${sortingOption}`)
+  //       const data = await res.json()
+  //       setPost(data)} catch(e){
+  //         console.log('boloss')
+  //         setError(true)
+  //       }
+  //       setLoading(false);
+  //   }
+  //   getPost()
+  //   },[]
+  // )
   
   function createMarkup() {
     return {__html: post[0].body};

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
-import rightArrow from "./right-arrow.png"
-import bottomArrow from "./bottom-arrow.png"
+
 import { useNavigate } from "react-router-dom";
 
 export default function Sorting() {
@@ -9,14 +8,16 @@ export default function Sorting() {
 
   function handleChange(value){
     
-    setSortOption(value)
+    // setSortOption(value)
     
   }
- useEffect(
-  ()=>{
-    navigate(`/?sort=${sortOption}`); 
-  },[sortOption]
- )
+//  useEffect(
+//   ()=>{
+//    sortOption !=="" && navigate(`/sort?option=${sortOption}`); 
+//   },[sortOption]
+//  )
+
+console.log(sortOption)
   return (
     
     <div className="category-filter" >
