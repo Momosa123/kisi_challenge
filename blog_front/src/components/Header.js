@@ -1,22 +1,21 @@
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import Search from "./Search";
 
-
-export default function Header(){
-  let navigate = useNavigate()
-  function handleClick(){
-    navigate("/")
-    
+export default function Header() {
+  let navigate = useNavigate();
+  function handleClick() {
+    navigate("/");
   }
 
- 
-  return(
+  return (
     <div>
       <header>
-        <h1 onClick={handleClick} className="header-title" type="button" >KISI Blog</h1>
-    
-        <Search/>
+        <h1 onClick={handleClick} className="header-title" type="button">
+          TECH Blog
+        </h1>
+
+        <Search />
       </header>
     </div>
-  )
+  );
 }
